@@ -11,7 +11,7 @@ export const getPersonById = (req, res) => {
         if(!person) {
             return res.status(404).json({ message: 'Person not found' })
         }
-        res.json(person)
+        res.send(person)
     } catch (error) {
         console.log(error)
     }
