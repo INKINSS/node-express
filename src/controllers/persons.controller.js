@@ -4,6 +4,19 @@ export const getAllPersons = (req, res) => {
     res.send(data)
 }
 
+export const getPersonById = (req, res) => {
+    try {
+        const { id } = req.params
+        const person = data.find(person => person.id === Number(id))
+        if(!person) {
+            return res.status(404).json({ message: 'Person not found' })
+        }
+        res.json(person)
+    } catch (error) {
+        console.log(error)
+    }
+}
+
 export const deletePerson = (req, res) => {
     try {
         const { id } = req.params
@@ -11,7 +24,7 @@ export const deletePerson = (req, res) => {
         if(!person) {
             return res.status(404).json({ message: 'Person not found' })
         }
-        res.send(person)
+        res.json(person)
     } catch (error) {
         console.log(error)
     }
