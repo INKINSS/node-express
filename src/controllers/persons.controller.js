@@ -17,6 +17,18 @@ export const getPersonById = (req, res) => {
     }
 }
 
+export const createPerson = (req, res) => {
+    try {
+        const randomId = Math.floor(Math.random() * 1000)
+        const person = req.body
+        person.id = randomId
+        data.push(person)
+        res.status(201).json(person)
+    } catch (error) {
+        console.log(error)
+    }
+}
+
 export const deletePerson = (req, res) => {
     try {
         const { id } = req.params

@@ -3,6 +3,7 @@ import routes from './routes/index.js'
 
 const app = express()
 
+app.use(express.json())
 app.use(routes)
 
 app.get('/', (_req, res) => {
