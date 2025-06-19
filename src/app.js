@@ -9,4 +9,4 @@ app.get('/', (_req, res) => {
     console.log('server listen')
 })
 
-export default app
+export default app;
