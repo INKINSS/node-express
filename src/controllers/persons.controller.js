@@ -18,10 +18,17 @@ export const getPersonById = (req, res) => {
 }
 
 export const createPerson = (req, res) => {
+
     try {
         const randomId = Math.floor(Math.random() * 1000)
         const person = req.body
         person.id = randomId
+        if(!person.name){
+            return res.status(400).json({ message: 'el nombre es requerido' })
+        }
+        if(!person.number){
+            return res.status(400).json({ message: 'el numero es requerido' })
+        }
         data.push(person)
         res.status(201).json(person)
     } catch (error) {
