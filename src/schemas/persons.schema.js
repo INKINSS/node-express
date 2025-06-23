@@ -1,15 +1,16 @@
 import { Schema, model } from "mongoose";
 
 export const personSchema = new Schema({
-    id: {
-        type: Number
-    },
     name: {
-        type: String
+        type: String,
+        required: true
     },
     number: {
-        type: String
+        type: String,
+        required: true
     }
+}, {
+    versionKey: false
 })
 
 export const Person = model('Person', personSchema, 'persons')
