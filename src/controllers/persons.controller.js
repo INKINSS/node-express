@@ -28,6 +28,10 @@ export const getPersonById = async(req, res) => {
 export const createPerson = async(req, res) => {
     try {
         const { name, number, id } = req.body
+        const getAllPerons = await Person.find()
+        if(getAllPerons.some(person => person.name === name)) {
+            return res.status(400).json({ message: 'Person already exists' })
+        }
         const person = new Person({ name, number, id})
         await person.save()
         res.status(201).json(person)
