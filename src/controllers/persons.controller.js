@@ -30,11 +30,25 @@ export const createPerson = async(req, res) => {
         const { name, number, id } = req.body
         const getAllPerons = await Person.find()
         if(getAllPerons.some(person => person.name === name)) {
-            return res.status(400).json({ message: 'Person already exists' })
+            return res.status(400).json({ message: 'esta persona ya existe, actualice su numero' })
         }
         const person = new Person({ name, number, id})
         await person.save()
         res.status(201).json(person)
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+export const updatePerson = async(req, res) => {
+    try {
+        const { id } = req.params
+        const { name, number } = req.body
+        const person = await Person.findByIdAndUpdate(id, { name, number }, { new: true })
+        if(!person) {
+            return res.status(404).json({ message: 'Person not found' })
+        }
+        res.json(person)
     } catch (error) {
         console.log(error)
     }
