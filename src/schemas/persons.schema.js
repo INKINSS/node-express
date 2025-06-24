@@ -8,7 +8,8 @@ export const personSchema = new Schema({
     },
     number: {
         type: String,
-        required: true
+        required: true,
+        minlength: 8
     }
 }, {
     versionKey: false
