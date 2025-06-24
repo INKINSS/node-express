@@ -21,7 +21,7 @@ connectDB()
 app.use(routes)
 
 
-app.get('/', (_req, res) => {
+app.get('/', (_req, _res) => {
     console.log('server listen')
 })
 
