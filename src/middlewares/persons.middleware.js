@@ -1,4 +1,3 @@
-//validar que el nombre tenga al menos 3 caracteres
 export const validateName = (req, res, next) => {
     const { name } = req.body
     if(name.length < 3) {
