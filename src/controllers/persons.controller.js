@@ -44,7 +44,7 @@ export const updatePerson = async(req, res) => {
     try {
         const { id } = req.params
         const { name, number } = req.body
-        const person = await Person.findByIdAndUpdate(id, { name, number }, { new: true })
+        const person = await Person.findByIdAndUpdate(id, { name, number }, { new: true, runValidators: true, context: 'query' })
         if(!person) {
             return res.status(404).json({ message: 'Person not found' })
         }
