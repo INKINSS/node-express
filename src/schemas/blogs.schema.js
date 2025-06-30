@@ -15,6 +15,7 @@ export const blogSchema = new Schema({
     },
     likes: {
         type: Number,
+        default: 0
     }
 }, {
     versionKey: false

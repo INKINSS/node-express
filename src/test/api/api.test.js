@@ -11,3 +11,29 @@ test('get number of blogs', async () => {
   assert.strictEqual(Array.isArray(response.body), true)
   assert.strictEqual(response.body.length, 1)
 })
+
+test('cada blog debe tener un campo _id', async () => {
+    const response = await request.get('/api/blogs')
+  
+    assert.strictEqual(response.statusCode, 200)
+    assert.ok(Array.isArray(response.body), 'El body debe ser un array')
+  
+    for (const blog of response.body) {
+      assert.ok(
+        blog._id,
+        `El blog no tiene el campo _id: ${JSON.stringify(blog)}`
+      )
+    }
+})
+
+test('verifica si falta la propied likes en la solicitud', async() => {
+    const newNote = {
+        title: 'Test',
+        author: 'Test',
+        url: 'Test',
+    }
+
+    const result = await request.post('/api/blogs').send(newNote)
+    assert.strictEqual(result.statusCode, 201)
+    assert.strictEqual(result.body.likes, 0)
+})
