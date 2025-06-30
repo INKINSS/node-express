@@ -8,6 +8,7 @@
     "start": "NODE_ENV=production node ./src/index.js",
     "dev": "cross-env NODE_ENV=development node --watch ./src/index.js",
     "test": "cross-env NODE_ENV=test jest",
+    "supertest": "node --test",
     "lint": "eslint ."
   },
   "keywords": [],

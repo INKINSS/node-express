@@ -1,16 +1,13 @@
-import { test, after } from 'node:test'
-import mongoose from 'mongoose'
+import test from 'node:test'
+import assert from 'node:assert'
 import supertest from 'supertest'
 import app from '../../app.js'
 
-const API = supertest(app)
-test('blogs are returned as json', async () => {
-    await API
-    .get('/api/blogs')
-    .expect(200)
-    .expect('Content-Type', /application\/json/)
-})
+const request = supertest(app)
 
-after(async () => {
-    await mongoose.connection.close()
+test('get number of blogs', async () => {
+  const response = await request.get('/api/blogs')
+  assert.strictEqual(response.statusCode, 200)
+  assert.strictEqual(Array.isArray(response.body), true)
+  assert.strictEqual(response.body.length, 1)
 })
