@@ -12,6 +12,19 @@ export const getAllBlogs = async (req, res) => {
     }
 }
 
+export const getBlogById = async(req, res) => {
+    try {
+        const { id } = req.params
+        const blog = await Blog.findById(id)
+        if(!blog) {
+            return res.status(404).json({ message: 'Blog not found' })
+        }
+        res.json(blog)
+    } catch (error) {
+        console.log(error)
+    }
+}
+
 export const createBlog = async(req, res) => {
     try {
         const { title, author, url, likes } = req.body
@@ -20,5 +33,32 @@ export const createBlog = async(req, res) => {
         res.status(201).json(blog)
     } catch (error) {
         res.status(400).json({ message: error.message })
+    }
+}
+
+export const updateBlog = async(req, res) => {
+    try {
+        const { id } = req.params
+        const { title, author, url, likes } = req.body
+        const blog = await Blog.findByIdAndUpdate(id, { title, author, url, likes }, { new: true })
+        if(!blog) {
+            return res.status(404).json({ message: 'Blog not found' })
+        }
+        res.json(blog)
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+export const deleteBlog = async(req, res) => {
+    try {
+        const { id } = req.params
+        const blog = await Blog.findByIdAndDelete(id)
+        if(!blog) {
+            return res.status(404).json({ message: 'Blog not found' })
+        }
+        res.json(blog)
+    } catch (error) {
+        console.log(error)
     }
 }
