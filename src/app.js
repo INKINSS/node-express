@@ -7,7 +7,14 @@ import cors from 'cors'
 const app = express()
 
 //config
-dotenv.config()
+if(process.env.NODE_ENV === 'local') {
+    dotenv.config({path: '.env.local'})
+} else if (process.env.NODE_ENV === 'test') {
+    dotenv.config({path: '.env.test'})
+} else {
+    dotenv.config({path: '.env'})
+}
+
 app.use(cors())
 
 //middlewares
