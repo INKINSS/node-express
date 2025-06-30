@@ -19,6 +19,6 @@ export const createBlog = async(req, res) => {
         await blog.save()
         res.status(201).json(blog)
     } catch (error) {
-        res.status(500).json({ message: error.message })
+        res.status(400).json({ message: error.message })
     }
 }

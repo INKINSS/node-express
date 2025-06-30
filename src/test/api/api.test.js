@@ -37,3 +37,14 @@ test('verifica si falta la propied likes en la solicitud', async() => {
     assert.strictEqual(result.statusCode, 201)
     assert.strictEqual(result.body.likes, 0)
 })
+
+test('verifica que no puede faltar el title o la url y que responde con codigo 400', async () => {
+    const newNote = {
+        author: 'Test',
+        title: 'Test',
+    }
+
+    const result = await request.post('/api/blogs').send(newNote)
+    assert.strictEqual(result.statusCode, 400)
+    assert.strictEqual(result.body.message, 'Blog validation failed: url: Path `url` is required.')
+})
