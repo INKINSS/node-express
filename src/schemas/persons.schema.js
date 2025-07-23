@@ -6,13 +6,28 @@ export const personSchema = new Schema({
         required: true,
         minlength: 3
     },
-    number: {
+    username: {
         type: String,
         required: true,
-        minlength: 8
-    }
+        minlength: 3
+    },
+    passwordHash: {
+        type: String,
+        required: true
+    },
+    notes: [{
+        type: Schema.Types.ObjectId,
+        ref: 'Note'
+    }]
 }, {
     versionKey: false
+}).set('toJSON', {
+    transform: (_doc, ret) => {
+      ret.id = ret._id.toString()
+      delete ret._id
+      delete ret.__v
+      delete ret.passwordHash
+    }
 })
 
-export const Person = model('Person', personSchema, 'persons')
+export const Person = model('Person', personSchema, 'users')
