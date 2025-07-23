@@ -1,6 +1,6 @@
 import { Blog } from "../schemas/blogs.schema.js"
 
-export const getAllBlogs = async (req, res) => {
+export const getAllBlogs = async (_req, res) => {
     try {
         const blog = await Blog.find()
         if(blog.length === 0) {
