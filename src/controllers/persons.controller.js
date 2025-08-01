@@ -1,11 +1,13 @@
 import { Person } from '../schemas/persons.schema.js'
+import '../schemas/blogs.schema.js'
+import bcrypt from 'bcrypt'
 
-export const getAllPersons = async(req, res) => {
+export const getAllPersons = async(_req, res) => {
     try {
-        const persons = await Person.find()
+        const persons = await Person.find().populate('notes')
         res.json(persons)
-        if(persons.length === 0) {
-            return res.status(404).json({ message: 'No persons found' })
+        if(persons.lenght === 0) {
+            return res.status(404).json({ message: 'no hay usuarios en la base de datos' })
         }
     } catch (error) {
         console.log(error)
@@ -17,7 +19,7 @@ export const getPersonById = async(req, res) => {
         const { id } = req.params
         const person = await Person.findById(id)
         if(!person) {
-            return res.status(404).json({ message: 'Person not found' })
+            return res.status(404).json({ message: 'no se encontro el usuario' })
         }
         res.json(person)
     } catch (error) {
@@ -27,12 +29,17 @@ export const getPersonById = async(req, res) => {
 
 export const createPerson = async(req, res) => {
     try {
-        const { name, number, id } = req.body
-        const getAllPerons = await Person.find()
-        if(getAllPerons.some(person => person.name === name)) {
-            return res.status(400).json({ message: 'esta persona ya existe, actualice su numero' })
+        const { username, password, name } = req.body
+        if(!username || !password || !name) {
+            return res.status(400).json({ message: 'falta nombre, contraseña o usuario' })
         }
-        const person = new Person({ name, number, id})
+
+        const existingUser = await Person.findOne({ username })
+        if(existingUser) {
+            return res.status(400).json({ message: 'esta persona ya existe' })
+        }
+        
+        const person = new Person({ username, passwordHash: await bcrypt.hash(password, 10), name })
         await person.save()
         res.status(201).json(person)
     } catch (error) {

@@ -1,8 +1,9 @@
 import { Blog } from "../schemas/blogs.schema.js"
+import { Person } from "../schemas/persons.schema.js"
 
 export const getAllBlogs = async (_req, res) => {
     try {
-        const blog = await Blog.find()
+        const blog = await Blog.find().populate('user', { name: 1, username: 1 })
         if(blog.length === 0) {
             return res.status(404).json({ message: 'No blogs found' })
         }
@@ -27,9 +28,13 @@ export const getBlogById = async(req, res) => {
 
 export const createBlog = async(req, res) => {
     try {
-        const { title, author, url, likes } = req.body
-        const blog = new Blog({ title, author, url, likes })
+        const { title, author, url, content, userId } = req.body
+        const user = await Person.findById(userId)
+
+        const blog = new Blog({ title, author, url, content, user: user._id })
         await blog.save()
+        user.notes = user.notes.concat(blog._id)
+        await user.save()
         res.status(201).json(blog)
     } catch (error) {
         res.status(400).json({ message: error.message })
@@ -39,8 +44,8 @@ export const createBlog = async(req, res) => {
 export const updateBlog = async(req, res) => {
     try {
         const { id } = req.params
-        const { title, author, url, likes } = req.body
-        const blog = await Blog.findByIdAndUpdate(id, { title, author, url, likes }, { new: true })
+        const { title, author, url } = req.body
+        const blog = await Blog.findByIdAndUpdate(id, { title, author, url }, { new: true })
         if(!blog) {
             return res.status(404).json({ message: 'Blog not found' })
         }
