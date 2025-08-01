@@ -3,13 +3,13 @@ import { Schema, model } from "mongoose";
 export const personSchema = new Schema({
     name: {
         type: String,
-        required: true,
-        minlength: 3
+        minlenght: 3
     },
     username: {
         type: String,
         required: true,
-        minlength: 3
+        minlenght: 3,
+        unique: true
     },
     passwordHash: {
         type: String,
@@ -17,7 +17,7 @@ export const personSchema = new Schema({
     },
     notes: [{
         type: Schema.Types.ObjectId,
-        ref: 'Note'
+        ref: 'Blog'
     }]
 }, {
     versionKey: false

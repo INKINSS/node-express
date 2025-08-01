@@ -9,6 +9,10 @@ export const blogSchema = new Schema({
         type: String,
         required: true,
     },
+    content: {
+        type: String,
+        required: true,
+    },
     url: {
         type: String,
         required: true,
@@ -19,7 +23,7 @@ export const blogSchema = new Schema({
     },
     user: {
         type: Schema.Types.ObjectId,
-        ref: 'User'
+        ref: 'Person'
     }
 }, {
     versionKey: false
