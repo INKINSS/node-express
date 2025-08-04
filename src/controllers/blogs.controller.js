@@ -27,6 +27,7 @@ export const getBlogById = async(req, res) => {
     }
 }
 
+//valida que el usuario que esta creando el blog sea el dueño
 export const createBlog = async(req, res) => {
     try {
         const { title, author, url, content, userId } = req.body
