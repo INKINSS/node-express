@@ -12,7 +12,7 @@ export const getAllPersons = async(_req, res) => {
     } catch (error) {
         console.log(error)
     }
-}
+};
 
 export const getPersonById = async(req, res) => {
     try {
