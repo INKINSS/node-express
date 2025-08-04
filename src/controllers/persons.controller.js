@@ -45,7 +45,7 @@ export const createPerson = async(req, res) => {
     } catch (error) {
         console.log(error)
     }
-}
+};
 
 export const updatePerson = async(req, res) => {
     try {
