@@ -33,6 +33,9 @@ export const createPerson = async(req, res) => {
         if(!username || !password || !name) {
             return res.status(400).json({ message: 'falta nombre, contraseña o usuario' })
         }
+        if(username.length < 3 || password.length < 3) {
+            return res.status(400).json({ message: 'el usuario y la contraseña deben tener al menos 3 caracteres' })
+        }
 
         const existingUser = await Person.findOne({ username })
         if(existingUser) {
