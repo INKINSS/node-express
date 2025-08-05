@@ -1,5 +1,6 @@
 import jwt from 'jsonwebtoken'
 
+//verify token como middleware
 export const verifyToken = (req, _res, next) => {
     try {
         const token = req.headers.authorization.split(' ')[1]
