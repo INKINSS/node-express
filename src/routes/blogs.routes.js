@@ -7,7 +7,7 @@ import { verifyToken } from '../middlewares/verifyToken.js'
 route.get('/api/blogs', getAllBlogs)
 route.post('/api/blogs', verifyToken, createBlog)
 route.get('/api/blogs/:id', getBlogById)
-route.put('/api/blogs/:id', updateBlog)
-route.delete('/api/blogs/:id', deleteBlog)
+route.put('/api/blogs/:id', verifyToken, updateBlog)
+route.delete('/api/blogs/:id', verifyToken, deleteBlog)
 
 export default route

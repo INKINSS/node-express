@@ -58,11 +58,16 @@ export const updateBlog = async(req, res) => {
 export const deleteBlog = async(req, res) => {
     try {
         const { id } = req.params
-        const blog = await Blog.findByIdAndDelete(id)
+        const idUser = req.user.id
+        const blog = await Blog.findById(id)
         if(!blog) {
             return res.status(404).json({ message: 'Blog not found' })
         }
-        res.json(blog)
+        if(blog.user.toString() !== idUser) {
+            return res.status(403).json({ message: 'No tienes permiso para eliminar este blog' })
+        }
+        await blog.deleteOne()
+        res.json({ message: 'Blog deleted' })
     } catch (error) {
         console.log(error)
     }
