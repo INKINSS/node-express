@@ -1,6 +1,5 @@
 import { Blog } from "../schemas/blogs.schema.js"
 import { Person } from "../schemas/persons.schema.js"
-import jwt from 'jsonwebtoken'
 
 export const getAllBlogs = async (_req, res) => {
     try {
@@ -32,11 +31,6 @@ export const createBlog = async(req, res) => {
     try {
         const { title, author, url, content, userId } = req.body
         const user = await Person.findById(userId)
-        const token = req.headers.authorization.split(' ')[1]
-        const decodedToken = jwt.verify(token, process.env.SECRET)
-        if(decodedToken.id !== user.id) {
-            return res.status(401).json({ message: 'Unauthorized' })
-        }
         const blog = new Blog({ title, author, url, content, user: user._id })
         await blog.save()
         user.notes = user.notes.concat(blog._id)
