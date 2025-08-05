@@ -1,7 +1,8 @@
 import express from 'express'
-const route = express.Router()
-import { deletePerson, getAllPersons, getPersonById, createPerson, updatePerson } from '../controllers/persons.controller.js'
 import { validateName } from '../middlewares/persons.middleware.js'
+import { deletePerson, getAllPersons, getPersonById, createPerson, updatePerson } from '../controllers/persons.controller.js'
+
+const route = express.Router()
 
 route.get('/api/persons', getAllPersons)
 route.get('/api/persons/:id', getPersonById)

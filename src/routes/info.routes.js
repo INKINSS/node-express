@@ -1,6 +1,7 @@
 import express from 'express'
-const route = express.Router()
 import { getAllInfo } from '../controllers/info.controller.js'
+
+const route = express.Router()
 
 route.get('/info', getAllInfo)
 
