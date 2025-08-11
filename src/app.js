@@ -25,7 +25,7 @@ morganBody(app)
 connectDB()
 
 //routes
-app.use(routes)
+app.use('/', routes)
 
 
 app.get('/', (_req, _res) => {
