@@ -11,8 +11,8 @@ if(process.env.NODE_ENV === 'local') {
     dotenv.config({path: '.env.local'})
 } else if (process.env.NODE_ENV === 'test') {
     dotenv.config({path: '.env.test'})
-} else {
-    dotenv.config({path: '.env'})
+} else if (process.env.NODE_ENV === 'production') {
+    dotenv.config({path: '.env.production'})
 }
 
 app.use(cors())
