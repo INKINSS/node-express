@@ -12,7 +12,7 @@ if (process.env.NODE_ENV !== 'production') {
     dotenv.config({ path: envFile });
 }
 
-app.use(cors())
+app.use(cors({origin: '*'}))
 
 //middlewares
 app.use(express.json())
