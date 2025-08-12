@@ -30,4 +30,4 @@ export const personSchema = new Schema({
     }
 })
 
-export const Person = model('Person', personSchema, 'users')
+export const Person = model('Person', personSchema, 'persons')
