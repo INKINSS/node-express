@@ -5,10 +5,10 @@ import bcrypt from 'bcrypt'
 export const getAllPersons = async(_req, res) => {
     try {
         const persons = await Person.find().populate('notes')
-        res.json(persons)
-        if(persons.lenght === 0) {
+        if(persons.length === 0) {
             return res.status(404).json({ message: 'no hay usuarios en la base de datos' })
         }
+        res.json(persons)
     } catch (error) {
         console.log(error)
     }
