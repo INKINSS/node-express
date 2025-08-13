@@ -7,13 +7,14 @@ export const personSchema = new Schema({
     },
     username: {
         type: String,
-        required: true,
         minlenght: 3,
         unique: true
     },
     passwordHash: {
         type: String,
-        required: true
+    },
+    number: {
+        type: String,
     },
     notes: [{
         type: Schema.Types.ObjectId,
